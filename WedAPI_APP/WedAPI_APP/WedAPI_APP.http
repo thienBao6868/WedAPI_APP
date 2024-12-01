@@ -1,0 +1,6 @@
+@WedAPI_APP_HostAddress = http://localhost:5049
+
+GET {{WedAPI_APP_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
