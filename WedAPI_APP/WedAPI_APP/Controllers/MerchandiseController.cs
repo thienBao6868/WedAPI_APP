@@ -15,5 +15,19 @@ namespace WedAPI_APP.Controllers
         {
             return Ok(merchandises);
         }
+
+        [HttpPost]
+        public IActionResult CreateMerchandise(Merchandise merchandise)
+        {
+
+            var newMerchandise = new Merchandise
+            {
+                MerchandiseCode = Guid.NewGuid(),
+                MerchandiseName = merchandise.MerchandiseName,
+                Prices = merchandise.Prices
+            };
+            merchandises.Add(newMerchandise);
+            return Ok(new {Success = true, Data= merchandises });
+        }
     }
 }

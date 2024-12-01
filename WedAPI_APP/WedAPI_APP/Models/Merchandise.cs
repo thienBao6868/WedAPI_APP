@@ -1,4 +1,5 @@
-﻿namespace WedAPI_APP.Models
+﻿
+namespace WedAPI_APP.Models
 {
     public class MerchandiseVM
     {
@@ -7,6 +8,7 @@
     }
     public class Merchandise : MerchandiseVM
     { 
-        public int MerchandiseCode { get; set; }
+        public Guid MerchandiseCode { get; set; }
+
     }
 }
