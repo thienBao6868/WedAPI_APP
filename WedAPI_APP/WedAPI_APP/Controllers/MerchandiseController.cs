@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using WedAPI_APP.Data;
 using WedAPI_APP.Models;
 
 namespace WedAPI_APP.Controllers
@@ -8,26 +9,30 @@ namespace WedAPI_APP.Controllers
     [ApiController]
     public class MerchandiseController : ControllerBase
     {
-        public static List<Merchandise> merchandises = new List<Merchandise>();
+        private readonly DataContext _context;
+
+        public MerchandiseController(DataContext context)
+        {
+            _context = context;
+        }
+
+      
 
         [HttpGet]
-        public IActionResult GetAll()
+        public  IActionResult GetAll()
         {
-            return Ok(merchandises);
+            var merchandiese = _context.Merchandises.ToList();
+            return Ok(merchandiese);
         }
 
         [HttpPost]
-        public IActionResult CreateMerchandise(Merchandise merchandise)
+        public IActionResult CreateMerchandise(Data.Merchandise model)
         {
 
-            var newMerchandise = new Merchandise
-            {
-                MerchandiseCode = Guid.NewGuid(),
-                MerchandiseName = merchandise.MerchandiseName,
-                Prices = merchandise.Prices
-            };
-            merchandises.Add(newMerchandise);
-            return Ok(new {Success = true, Data= merchandises });
+            _context.Add(model);
+            _context.SaveChanges();
+            
+            return Ok(new { Success = true, Data = "Create Success" });
         }
     }
 }
